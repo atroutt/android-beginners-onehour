@@ -1,6 +1,6 @@
-# Android Beginners
+# Android Beginners (in one hour!)
 
-This is the source for an Android development class taught in Philadelphia, PA with [Girl Develop It Philly](http://www.meetup.com/Girl-Develop-It-Philadelphia/). Slides and materials are hosted at [http://atroutt.github.io/android-beginners](http://atroutt.github.io/android-beginners).
+This is the source for an Android development class taught in Philadelphia, PA for the Women in Tech Summit. Slides and materials are hosted at [https://github.com/atroutt/android-beginners-onehour](https://github.com/atroutt/android-beginners-onehour).
 
 If you are looking for online classes or resources for learning similar material, check out these:
 * [Google's Android Training](https://developer.android.com/training/index.html) specifically, [Building your First App](https://developer.android.com/training/basics/firstapp/index.html) (free)
@@ -12,17 +12,7 @@ And for getting started with Java, I recommend:
 
 ## Course description
 
-This is a practical introduction to app development on Android. You are going to build five apps. At the end of this class you will know not only how to start a new app project, but also how some of the most common features in Android apps are implemented. You will get acquainted with standard Android, Google, and open source libraries for building Android apps. We will be writing code in Java and building, installing, and even sharing(!) apps.
-
-I think it is just as important to build things from scratch as it is to understand existing code and take things apart. Therefore the coding exercises will be a combination of read and edit, build from pieces, and start from scratch.
-
-**Cost:** $100
-
-**Dates:** Saturday and Sunday, November 11-12, 2016 from 9:00 AM to 4:30 PM both days.
-
-**Location:** Philadelphia, PA
-
-**Sign Up:** http://www.meetup.com/Girl-Develop-It-Philadelphia/events/234942405/
+This is a practical introduction to app development on Android. By the end of this workshop you will be able to modify and run an Android app from source! Since we only have an hour we will only be able to learn about the basic anatomy of Android apps and learn how to connect different screens together with Android Intents. With the extra materials provided you can continue after the workshop to learn about using APIs, authenticating users, integrating the camera into your app, modifying images, and about testing and refactoring your app code.
 
 ### Prerequisites:
 
@@ -30,30 +20,29 @@ You should be curious and excited to learn about how apps are built. You should 
 
 You should have:
 
-(a) taken an intro programming class like intro to JavaScript through Girl Develop It, or
+(a) taken an intro programming class, or
 
 (b) be familiar with programming concepts like variables, methods, classes, arrays, conditionals, and loops.
 
-
 ### Tech requirements:
 
- - Your laptop (Mac or Linux strongly preferred) with a power cable.
- - A Google account. If you don't already have one you can [create one for free](https://accounts.google.com/signup)
- - [Download and install Android Studio](http://developer.android.com/sdk/index.html)
- - Once Android Studio is installed, go to the Android SDK Manager inside Android Studio (Tools -> Android -> SDK Manager) and check two things: 
+ - Bring your laptop (Mac or Linux strongly preferred) with a power cable.
+ - Download and install Android Studio http://developer.android.com/sdk/index.html
+ - Once Android Studio is installed, go to the Android SDK Manager inside Android Studio (Tools -> Android -> SDK Manager) and check two things:
    - Under the "SDK Platforms" tab check that Android 7.0 (Nougat) API 24 is installed or download if needed.
    - Then in the "SDK Tools" tab on that screen download the Support Repository / Android Support Repository if not already installed.
+ - Download the code for this class
+   - Go to https://github.com/hasaudrey/android-beginners-tune/
+   - On the top right press "Clone or download" and click "Download ZIP" or get the clone url to git clone
+   - On your computer, open the zip files with your favorite unzip program and put the 'android-beginners' folder somewhere you can find it later. If you are git cloning, then you are all set.
+   - This repo contains the source for the app we will be using in this class in addition to these slides.
+ - Try to launch the app in Android studio:
+   - Choose to open an existing Android Studio Project (File -> New -> Import Project)
+   - Choose the AndroidBeginnersFirstApp folder on your computer
  - **Nice to have** an Android phone with Android Jellybean (4.1-4.3), KitKat (4.4), Lollipop (5.x), or Marshmallow (6.x)
     - Don't forget a USB cable to connect your device to your laptop
-    - [Enable developer options](http://www.androidauthority.com/enable-developer-options-569223/) on your device to be able to connect with your computer
-
-### Topics covered:
-
- - Running your first app
- - Anatomy of an app
- - APIs and authentication
- - Cameras and photos
+    - Enable developer options on your device to be able to connect with your computer. Instructions: http://www.androidauthority.com/enable-developer-options-569223/
 
 ### Instructor:
 
-[Audrey Troutt](http://audreytroutt.com/) is a senior mobile and backend software engineer at [Tune](https://www.tune.com/solutions/tune-marketing-console/) in Philadelphia, PA. Previously Audrey was the Director of Mobile at SnipSnap and, before that, lead Android and iOS SDK development at Artisan Mobile in Philadelphia. In addition to being a polyglot programmer and full-stack developer with seven years experience, Audrey is passionate about clean code, beautiful apps, automation and vibrant communities.
+[Audrey Troutt](http://audreytroutt.com/) is a software development manager for the In-App Marketing, App Store Analytics, and SDK teams at [Tune](https://www.tune.com/solutions/tune-marketing-console/) and is based in Philadelphia, PA. Previously Audrey was the Director of Mobile at SnipSnap and, before that, lead Android and iOS SDK development at Artisan Mobile in Philadelphia. In addition to being a polyglot programmer and full-stack developer with seven years experience, Audrey is passionate about clean code, beautiful mobile apps, automation and vibrant communities.
