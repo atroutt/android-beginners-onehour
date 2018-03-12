@@ -1,6 +1,6 @@
 # Android Beginners (in one hour!)
 
-This is the source for an Android development class taught in Philadelphia, PA for the Women in Tech Summit. Slides and materials are hosted at [https://github.com/atroutt/android-beginners-onehour](https://github.com/atroutt/android-beginners-onehour).
+This is the source for an Android development class taught in Philadelphia, PA for the [Women in Tech Summit Northeast](https://womenintechsummit.net/intro-to-android-development/). Slides and materials are hosted at [http://audreytroutt.com/android-beginners-onehour/](http://audreytroutt.com/android-beginners-onehour/).
 
 If you are looking for online classes or resources for learning similar material, check out these:
 * [Google's Android Training](https://developer.android.com/training/index.html) specifically, [Building your First App](https://developer.android.com/training/basics/firstapp/index.html) (free)
@@ -12,7 +12,11 @@ And for getting started with Java, I recommend:
 
 ## Course description
 
-This is a practical introduction to app development on Android. By the end of this workshop you will be able to modify and run an Android app from source! Since we only have an hour we will only be able to learn about the basic anatomy of Android apps and learn how to connect different screens together with Android Intents. With the extra materials provided you can continue after the workshop to learn about using APIs, authenticating users, integrating the camera into your app, modifying images, and about testing and refactoring your app code.
+This is a short introduction to app development on Android. By the end of this workshop you will be able to modify and run an Android app from source!
+
+Since we only have an hour we will only be able to learn about the basic anatomy of Android apps and learn how to connect different screens together with Android Intents.
+
+With the extra materials provided you can continue after the workshop to learn about using APIs, authenticating users, integrating the camera into your app, modifying images, and about testing and refactoring your app code.
 
 ### Prerequisites:
 
