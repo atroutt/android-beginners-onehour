@@ -341,14 +341,16 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
   // TODO Project 3: Get user info and display it at the top of the drawer
   FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
   if (user != null) {
-    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-    View headerView = navigationView.getHeaderView(0);
-    TextView currentUserEmail = (TextView) headerView.findViewById(R.id.current_user_email);
-    currentUserEmail.setText(user.getEmail());
-    TextView currentUserName = (TextView) headerView.findViewById(R.id.current_user_name);
-    currentUserName.setText(user.getDisplayName());
-    ImageView currentUserImage = (ImageView) headerView.findViewById(R.id.current_user_photo);
-    Picasso.with(this).load(user.getPhotoUrl()).into(currentUserImage);
+      NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+      View headerView = navigationView.getHeaderView(0);
+      TextView currentUserEmail = (TextView) headerView.findViewById(R.id.current_user_email);
+      currentUserEmail.setText(user.getEmail());
+      TextView currentUserName = (TextView) headerView.findViewById(R.id.current_user_name);
+      currentUserName.setText(user.getDisplayName());
+      ImageView currentUserImage = (ImageView) headerView.findViewById(R.id.current_user_photo);
+      Picasso.with(this).load(user.getPhotoUrl()).into(currentUserImage);
+  } else {
+      unsetUserInfoInDrawer();
   }
 }</code></pre>
 </section>
@@ -393,13 +395,16 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
   <pre><code contenteditable class="java">if (id == R.id.action_sign_out) {
   // TODO Project 3: implement sign out
   Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback&lt;Status&gt;() {
-    @Override
-    public void onResult(Status status) {
-      if (status.isSuccess()) {
-        Intent loginScreenIntent = new Intent(MainActivity.this, LoginActivity.class);
-        startActivity(loginScreenIntent);
+      @Override
+      public void onResult(Status status) {
+          if (status.isSuccess()) {
+              unsetUserInfoInDrawer();
+              deleteSavedSelfieImage();
+              FirebaseAuth.getInstance().signOut();
+              Intent loginScreenIntent = new Intent(MainActivity.this, LoginActivity.class);
+              startActivity(loginScreenIntent);
+          }
       }
-    }
   });
   return true;
 }</code></pre>
