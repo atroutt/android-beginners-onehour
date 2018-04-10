@@ -17,19 +17,18 @@ import android.app.Application;
 
 public class MyFirstApplication extends Application {
 
-int toastLength = Toast.LENGTH_LONG;
+  int toastLength = Toast.LENGTH_LONG;
 
-@Override
-public void onCreate() {
-super.onCreate();
-showToast("I have been created!");
-}
+  @Override
+  public void onCreate() {
+    super.onCreate();
+    showToast("I have been created!");
+  }
 
-public void showToast(String message) {
-Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-}
-}
-</code></pre>
+  public void showToast(String message) {
+    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+  }
+}</code></pre>
   <aside class="notes">
             <p>What is all this (press next)</p>
   </aside>
@@ -43,19 +42,18 @@ import android.app.Application; // import
 
 public class MyFirstApplication extends Application { // class
 
-int toastLength = Toast.LENGTH_LONG; // field
+  int toastLength = Toast.LENGTH_LONG; // field
 
-@Override
-public void onCreate() { // method
-super.onCreate();
-showToast("I have been created!");
-}
+  @Override
+  public void onCreate() { // method
+    super.onCreate();
+    showToast("I have been created!");
+  }
 
-public void showToast(String message) { // method
-Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-}
-}
-</code></pre>
+  public void showToast(String message) { // method
+    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+  }
+}</code></pre>
   <aside class="notes">
       Really quick, here's what I mean by class, field, method, and comment.
   </aside>
@@ -114,11 +112,11 @@ Toast.makeText(this, message, toastLength).show();
   <p class="left-align">A <strong class="green">field</strong> holds some data for your object.</p>
 <pre><code contenteditable class ="java">public class MyFirstApplication extends Application {
 
-int toastLength; // this is a field
+  int toastLength; // this is a field
 
-public void showToast(String message) {
-Toast.makeText(this, message, toastLength).show();
-}
+  public void showToast(String message) {
+    Toast.makeText(this, message, toastLength).show();
+  }
 }
 </code></pre>
 <p class="left-align" style="margin-top:20px;"><small class="yellow">
