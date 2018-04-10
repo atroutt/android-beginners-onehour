@@ -65,13 +65,12 @@ import android.app.Application;
 
 public class MyFirstApplication extends Application {
 
-@Override
-public void onCreate() {
-super.onCreate();
-// At this point my first application was just created
-}
-}
-</code></pre>
+  @Override
+  public void onCreate() {
+    super.onCreate();
+    // At this point my first application was just created
+  }
+}</code></pre>
   <aside class="notes">
     This is a super simple Application implememtation. It doesn't really do anything, but it is there. The one method here is onCreate, which is called by the Android operating system just after your application is first launched.
 
@@ -142,80 +141,79 @@ android:name=&quot;.MyFirstApplication&quot;&gt;
 
 @Override
 protected void onCreate(Bundle savedInstanceState) {
-super.onCreate(savedInstanceState);
-setContentView(R.layout.activity_main);
-Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-setSupportActionBar(toolbar);
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_main);
+  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+  setSupportActionBar(toolbar);
 
-FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-fab.setOnClickListener(new View.OnClickListener() {
-  @Override
-  public void onClick(View view) {
-      Snackbar.make(view, "Hello, Test!", Snackbar.LENGTH_LONG)
-              .setAction("Action", null).show();
-  }
-});
+  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+  fab.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Snackbar.make(view, "Hello, Test!", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+  });
 
-DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-      this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-drawer.setDrawerListener(toggle);
-toggle.syncState();
+  DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+  ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+  drawer.setDrawerListener(toggle);
+  toggle.syncState();
 
-NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-navigationView.setNavigationItemSelectedListener(this);
+  NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+  navigationView.setNavigationItemSelectedListener(this);
 }
 
 @Override
 public void onBackPressed() {
-DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-if (drawer.isDrawerOpen(GravityCompat.START)) {
-  drawer.closeDrawer(GravityCompat.START);
-} else {
-  super.onBackPressed();
-}
+  DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+  if (drawer.isDrawerOpen(GravityCompat.START)) {
+    drawer.closeDrawer(GravityCompat.START);
+  } else {
+    super.onBackPressed();
+  }
 }
 
 @Override
 public boolean onCreateOptionsMenu(Menu menu) {
-// Inflate the menu; this adds items to the action bar if it is present.
-getMenuInflater().inflate(R.menu.main, menu);
-return true;
+  // Inflate the menu; this adds items to the action bar if it is present.
+  getMenuInflater().inflate(R.menu.main, menu);
+  return true;
 }
 
 @Override
 public boolean onOptionsItemSelected(MenuItem item) {
-// Handle action bar item clicks here. The action bar will
-// automatically handle clicks on the Home/Up button, so long
-// as you specify a parent activity in AndroidManifest.xml.
-int id = item.getItemId();
+  // Handle action bar item clicks here. The action bar will
+  // automatically handle clicks on the Home/Up button, so long
+  // as you specify a parent activity in AndroidManifest.xml.
+  int id = item.getItemId();
 
-//noinspection SimplifiableIfStatement
-if (id == R.id.action_settings) {
-  return true;
-}
+  //noinspection SimplifiableIfStatement
+  if (id == R.id.action_settings) {
+    return true;
+  }
 
-return super.onOptionsItemSelected(item);
+  return super.onOptionsItemSelected(item);
 }
 
 @Override
 public boolean onNavigationItemSelected(MenuItem item) {
-// Handle navigation view item clicks here.
-int id = item.getItemId();
+  // Handle navigation view item clicks here.
+  int id = item.getItemId();
 
-if (id == R.id.nav_camera) {
-  // Handle the camera action
-} else if (id == R.id.nav_list) {
-  Intent listIntent = new Intent(this, PaintingListActivity.class);
-  startActivity(listIntent);
-}
+  if (id == R.id.nav_camera) {
+    // Handle the camera action
+  } else if (id == R.id.nav_list) {
+    Intent listIntent = new Intent(this, PaintingListActivity.class);
+    startActivity(listIntent);
+  }
 
-DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-drawer.closeDrawer(GravityCompat.START);
-return true;
-}
-}
-</code></pre>
+  DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+  drawer.closeDrawer(GravityCompat.START);
+  return true;
+  }
+}</code></pre>
 </section>
 <section>
   <h2>Activity Lifecycle</h2>
@@ -233,28 +231,28 @@ return true;
   <p class="left-align">There will also be methods for any of the actions that can be taken with the views (buttons, toggles, menus, etc.) on the screen.</p>
   <pre><code contenteditable class="java">@Override
 public void onBackPressed() {
-DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-if (drawer.isDrawerOpen(GravityCompat.START)) {
-drawer.closeDrawer(GravityCompat.START);
-} else {
-super.onBackPressed();
-}
+  DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+  if (drawer.isDrawerOpen(GravityCompat.START)) {
+    drawer.closeDrawer(GravityCompat.START);
+  } else {
+    super.onBackPressed();
+  }
 }
 
 @Override
 public boolean onNavigationItemSelected(MenuItem item) {
-int id = item.getItemId();
+  int id = item.getItemId();
 
-if (id == R.id.nav_camera) {
+  if (id == R.id.nav_camera) {
 
-} else if (id == R.id.nav_list) {
-Intent listIntent = new Intent(this, PaintingListActivity.class);
-startActivity(listIntent);
-}
+  } else if (id == R.id.nav_list) {
+    Intent listIntent = new Intent(this, PaintingListActivity.class);
+    startActivity(listIntent);
+  }
 
-DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-drawer.closeDrawer(GravityCompat.START);
-return true;
+  DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+  drawer.closeDrawer(GravityCompat.START);
+  return true;
 }</code></pre>
 </section>
 <section>
@@ -291,13 +289,13 @@ startActivity(listIntent);</code></pre>
   <h2>Email Intent</h2>
   <p class="left-align">Here's an example of a method that creates an intent to send an email:</p>
   <pre><code contenteditable class="java">public void composeEmail(String[] addresses, String subject) {
-Intent intent = new Intent(Intent.ACTION_SENDTO);
-intent.setData(Uri.parse("mailto:")); // only email apps
-intent.putExtra(Intent.EXTRA_EMAIL, addresses);
-intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-if (intent.resolveActivity(getPackageManager()) != null) {
-startActivity(intent);
-}
+  Intent intent = new Intent(Intent.ACTION_SENDTO);
+  intent.setData(Uri.parse("mailto:")); // only email apps
+  intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+  intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+  if (intent.resolveActivity(getPackageManager()) != null) {
+    startActivity(intent);
+  }
 }</code></pre>
 </section>
 <section>
@@ -306,10 +304,10 @@ startActivity(intent);
   <pre><code contenteditable class="java">static final int REQUEST_IMAGE_CAPTURE = 1;
 
 private void dispatchTakePictureIntent() {
-Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-}
+  Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+  if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+  }
 }</code></pre>
 </section>
 <section>
@@ -317,10 +315,10 @@ startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
   <p class="left-align">When you call startActivityForResult you have to pass a code that you can use to match the response with your request.</p>
   <pre><code contenteditable class="java">@Override
 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-// A picture was just taken, let's display that in our image view
-editImage();
-updateMainImageFromFile();
-}
+  if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+    // A picture was just taken, let's display that in our image view
+    editImage();
+    updateMainImageFromFile();
+  }
 }</code></pre>
 </section>
