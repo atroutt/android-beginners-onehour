@@ -1,0 +1,59 @@
+<section>
+  <h2>Intro to Android Studio</h2>
+  <p>In this section you will learn how to import the workshop project into Android Studio, and build and run it on your device or emulator.<p>
+</section>
+<section>
+  <h2>Tour of Android Studio</h2>
+  <p>There's a lot to see and do in Android Studio. Let's take a <a href="https://developer.android.com/studio/intro/index.html">brief tour</a> of the parts we will use in this course.</p>
+  <img src="img/first-run-android-studio.png"/>
+  <aside class="notes">
+    <p>Introduce these parts of Android Studio:</p>
+    <ol>
+      <li>The toolbar lets you carry out a wide range of actions, including running your app and launching Android tools.</li>
+      <li>The navigation bar helps you navigate through your project and open files for editing. It provides a more compact view of the structure visible in the Project window.</li>
+      <li>The editor window is where you create and modify code. Depending on the current file type, the editor can change. For example, when viewing a layout file, the editor displays the Layout Editor.</li>
+      <li>The tool window bar runs around the outside of the IDE window and contains the buttons that allow you to expand or collapse individual tool windows.</li>
+      <li>The tool windows give you access to specific tasks like project management, search, version control, and more. You can expand them and collapse them.</li>
+      <li>The status bar displays the status of your project and the IDE itself, as well as any warnings or messages.</li>
+    </ol>
+  </aside>
+</section>
+<section>
+  <h2>Have the App Code?</h2>
+  <p class="left-align">Hopefully you were able to do this ahead of time, but if not, <a href="https://github.com/atroutt/android-beginners-onehour/archive/gh-pages.zip">download the source code</a> (zip) for our workshop app.</p>
+  <p class="left-align">Alternatively, grab one of my usb drives.</p>
+</section>
+<section>
+  <h2>Import/Open Project</h2>
+  <img class="right" src="img/first-android-studio-open-project.png" alt="From the main screen when you launch Android Studio, choose Open an existing Android Studio Project"/>
+  <p class="left-align">1. Launch Android studio</p>
+  <p class="left-align">2. Choose to open an existing Android Studio Project (File -> New -> Import Project)</p>
+  <p class="left-align">3. Choose the AndroidBeginnersFirstApp folder on your computer.</p>
+  <p class="left-align">4. Install any tools that Android Studio says are missing (hopefully you were able to do this ahead of time).</p>
+</section>
+<section>
+  <h2>Gradle Sync</h2>
+  <p class="left-align">Before you can run your first app, you need to make sure you have all the dependencies downloaded. To do that select "Sync Project with Gradle Files" from the top menu bar. This may take a minute.</p>
+  <img src="img/first-sync-gradle.png"/>
+  <aside class="notes">
+    If they haven't downloaded the SDKs that they need yet, there will be a lot of errors.
+  </aside>
+</section>
+<section>
+  <h2>Run your App (!)</h2>
+  <img style="float:right;" src="img/first-run-app.png"/>
+  <p class="left-align">In the top menu choose "Run 'app'"</p>
+  <p class="left-align">Android Studio is going to ask you to "Select Deployment Target" &mdash; this means choose the device you would like to run on</p>
+  <p class="left-align" style="margin-top:20px;"><small class="yellow">
+    PRO TIP: Check the box that says "Use same device for future launches."
+  </small></p>
+</section>
+<section>
+  <h2>First Run</h2>
+  <p>If you can see this, then you are all set up!</p>
+  <p>Go ahead and snap a selfie!</p>
+  <img src="img/first-run.png"/>
+  <aside class="notes">
+    <p>If you have some people who finish early, teach them the "Find in Path" (cmd+shift+f) command in Android Studio and see if they can figure out how to change the text that appears on the MainActivity "Take a photo of yourself..."</p>
+  </aside>
+</section>
