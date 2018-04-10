@@ -21,7 +21,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
 
-            <!-- TODO Project 3: Remove this intent when you add the LoginActivity -->
+            <!-- TODO Project 3: Remove this intent filter when you add the LoginActivity -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
