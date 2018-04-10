@@ -16,9 +16,9 @@
 // ...
 
 // TODO Project 3: add the firebase auth dependencies here
-compile 'com.google.firebase:firebase-core:9.8.0'
-compile 'com.google.firebase:firebase-auth:9.8.0'
-compile 'com.google.android.gms:play-services-auth:9.8.0'
+compile 'com.google.firebase:firebase-core:10.0.1'
+compile 'com.google.firebase:firebase-auth:10.0.1'
+compile 'com.google.android.gms:play-services-auth:10.0.1'
 }</code></pre>
   <p  class="left-align" style="margin-top:20px;"><small class="green">
     HINT: There are two build.gradle files for your project. One is labled "Module" and the other "Project". The Module one is the one we want to edit.
@@ -46,11 +46,11 @@ android:name=&quot;.MainActivity&quot;
 android:label=&quot;Android Beginners&quot;
 android:theme=&quot;@style/AppTheme.NoActionBar&quot;&gt;
 
-&lt;!-- TODO Project 3: Remove this intent when you add the LoginActivity --&gt;
-&lt;intent-filter&gt;
-&lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
-&lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
-&lt;/intent-filter&gt;
+  &lt;!-- TODO Project 3: Remove this intent filter when you add the LoginActivity --&gt;
+  &lt;intent-filter&gt;
+  &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
+  &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
+  &lt;/intent-filter&gt;
 &lt;/activity&gt;</code></pre>
 </section>
 <section>
@@ -60,10 +60,10 @@ android:theme=&quot;@style/AppTheme.NoActionBar&quot;&gt;
 android:name=&quot;.LoginActivity&quot;
 android:label=&quot;@string/app_name&quot;&gt;
 
-&lt;intent-filter&gt;
-&lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
-&lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
-&lt;/intent-filter&gt;
+  &lt;intent-filter&gt;
+  &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
+  &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
+  &lt;/intent-filter&gt;
 &lt;/activity&gt;
 </code></pre>
 </section>
