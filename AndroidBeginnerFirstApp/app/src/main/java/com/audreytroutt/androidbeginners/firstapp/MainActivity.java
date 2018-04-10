@@ -1,9 +1,11 @@
 package com.audreytroutt.androidbeginners.firstapp;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -26,9 +29,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
@@ -38,8 +45,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final String TAG = "MainActivity";
 
     private DrawerLayout mDrawer;
-    private Uri androidBeginnerImageUri;
     private FloatingActionButton fab;
+    private String mCurrentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,20 +57,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        if (haveAndroidBeginnerImageLocally()) {
-            updateMainImageFromFile();
+        try {
+            if (haveSelfieImageLocally()) {
+                updateMainImageFromFile();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (haveAndroidBeginnerImageLocally()) {
-                    shareAction();
-                } else {
-                    // create Intent to take a picture and return control to the calling application
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, getAndroidBeginnerImageUri()); // set the image file name that the camera will save to
-                    MainActivity.this.startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+                try {
+                    if (haveSelfieImageLocally()) {
+                        shareAction();
+                    } else {
+                        captureImage();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -82,6 +94,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void setUserInfoInDrawer() {
         // TODO Project 3: Get user info and display it at the top of the drawer
+    }
+
+    private void unsetUserInfoInDrawer() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        TextView currentUserEmail = (TextView) headerView.findViewById(R.id.current_user_email);
+        currentUserEmail.setText(R.string.user_email_placeholder_text);
+        TextView currentUserName = (TextView) headerView.findViewById(R.id.current_user_name);
+        currentUserName.setText(R.string.user_name_placeholder_text);
+        ImageView currentUserImage = (ImageView) headerView.findViewById(R.id.current_user_photo);
+        Picasso.with(this).load(R.mipmap.ic_launcher).into(currentUserImage);
     }
 
     @Override
@@ -109,32 +132,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.action_sign_out) {
             // TODO Project 3: implement sign out
-            return true;
         } else if (id == R.id.action_delete_photo) {
-            File savedImage = getAndroidBeginnerImageFile();
-            if (savedImage.exists()) {
-                if (!isStoragePermissionGranted()) {
-                    requestWriteExternalStoragePermission();
-                }
-                savedImage.delete();
-                Toast.makeText(this, "Photo deleted", Toast.LENGTH_LONG).show();
-
-                resetMainImageToInitialState();
-            }
+            deleteSavedSelfieImage();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+    private void deleteSavedSelfieImage() {
+        File savedImage = null;
+        try {
+            savedImage = getSelfieImageFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (savedImage != null && savedImage.exists()) {
+            if (!isStoragePermissionGranted()) {
+                requestWriteExternalStoragePermission();
+            }
+            savedImage.delete();
+            Toast.makeText(this, "Photo deleted", Toast.LENGTH_LONG).show();
+
+            resetMainImageToInitialState();
+        }
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // TODO Project 2: create an intent for the MediaStore.ACTION_IMAGE_CAPTURE
+            // TODO Project 2: call the captureImage() method
         } else if (id == R.id.nav_list) {
             // TODO Project 2: create an intent for the PaintingListActivity
         } else if (id == R.id.nav_grid) {
@@ -142,33 +172,58 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_web) {
             // TODO Project 2: create an intent to open a url
         } else if (id == R.id.nav_share) {
-            // TODO Project 2: create an intent to social share about this app
-            shareAction();
+            // TODO Project 2: call the shareAction() method
         } else if (id == R.id.nav_send) {
             // TODO Project 2: create an intent to send an email
-            Intent intent = new Intent(Intent.ACTION_SENDTO);
-            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-            intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "gdiandroidbeginners@mailinator.com"});
-            intent.putExtra(Intent.EXTRA_SUBJECT, "Testing out my Email Intent -- Success!");
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivity(intent);
-            }
         }
 
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    private void captureImage() {
+        if (!isStoragePermissionGranted()) {
+            requestWriteExternalStoragePermission();
+        }
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = getTempImageFile();
+            } catch (IOException e) {
+                // Error occurred while creating the File
+                e.printStackTrace();
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.audreytroutt.androidbeginners.firstapp.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+            } else {
+                Toast.makeText(this, "There was an error accessing the camera", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     private void shareAction() {
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "I just made my first Android app! #androidbeginner #gdiphilly");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "I just made my first Android app! #androidbeginner #womenintech #WITSNE");
         shareIntent.setType("text/plain");
-        if (haveAndroidBeginnerImageLocally()) {
-            shareIntent.putExtra(Intent.EXTRA_STREAM, getAndroidBeginnerImageUri());
-            shareIntent.setType("*/*");
+        try {
+            if (haveSelfieImageLocally()) {
+                shareIntent.putExtra(Intent.EXTRA_STREAM, getSelfieImageUri());
+                shareIntent.setType("*/*");
+            }
+            startActivity(shareIntent);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error accessing photo to share", Toast.LENGTH_SHORT).show();
         }
-        startActivity(shareIntent);
     }
 
     @Override
@@ -184,36 +239,64 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // Image-related methods
     // ----------------------------------
 
-    private Uri getAndroidBeginnerImageUri() {
-        if (androidBeginnerImageUri == null) {
-            androidBeginnerImageUri = Uri.fromFile(getAndroidBeginnerImageFile());
-        }
-        return androidBeginnerImageUri;
+    private Uri getTempImageUri() {
+        Uri photoURI;
+        photoURI = FileProvider.getUriForFile(this,
+                "com.audreytroutt.androidbeginners.firstapp.fileprovider",
+                new File(mCurrentPhotoPath));
+
+        return photoURI;
     }
 
-    private boolean haveAndroidBeginnerImageLocally() {
-        return getAndroidBeginnerImageFile().exists();
+    private Uri getSelfieImageUri() throws IOException {
+        Uri photoURI;
+        photoURI = FileProvider.getUriForFile(this,
+                "com.audreytroutt.androidbeginners.firstapp.fileprovider",
+                getSelfieImageFile());
+
+        return photoURI;
+    }
+
+    private boolean haveSelfieImageLocally() throws IOException {
+        return getSelfieImageFile().exists();
     }
 
     /** Create a File for saving an image or video */
-    private File getAndroidBeginnerImageFile() {
+    private File getTempImageFile() throws IOException {
         File mediaStorageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        return new File(mediaStorageDir.getPath(), "androidBeginnersImage.jpg");
+        File image = File.createTempFile(
+                "tempImage",  /* prefix */
+                ".jpg",         /* suffix */
+                mediaStorageDir      /* directory */
+        );
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    private File getSelfieImageFile() throws IOException {
+        File mediaStorageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return new File(mediaStorageDir, "selfieImage.jpg");
     }
 
     private void updateMainImageFromFile() {
-        ImageView imageView = (ImageView)findViewById(R.id.camera_image);
-        Bitmap bitmap = BitmapFactory.decodeFile(getAndroidBeginnerImageUri().getPath(), null);
-        imageView.setImageBitmap(bitmap);
+        try {
+            ImageView imageView = (ImageView) findViewById(R.id.camera_image);
+            Bitmap bitmap = BitmapFactory.decodeFile(getSelfieImageFile().getPath(), null);
+            imageView.setImageBitmap(bitmap);
 
-        ((TextView)findViewById(R.id.welcome_message)).setText(R.string.main_screen_welcom_message_if_image_set);
+            ((TextView) findViewById(R.id.welcome_message)).setText(R.string.main_screen_welcom_message_if_image_set);
 
-        // Hide the instructions for taking a photo
-        findViewById(R.id.initial_arrow_image).setVisibility(View.INVISIBLE);
-        findViewById(R.id.initial_instructions).setVisibility(View.INVISIBLE);
+            // Hide the instructions for taking a photo
+            findViewById(R.id.initial_arrow_image).setVisibility(View.INVISIBLE);
+            findViewById(R.id.initial_instructions).setVisibility(View.INVISIBLE);
 
-        // Switch the icon on the FAB to share
-        fab.setImageResource(R.drawable.ic_share);
+            // Switch the icon on the FAB to share
+            fab.setImageResource(R.drawable.ic_share);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error loading selfie image", Toast.LENGTH_SHORT).show();
+        }
     }
 
     // this is the opposite of updateMainImageFromFile
@@ -242,7 +325,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;
             }
         }
-        else { //permission is automatically granted on sdk<23 upon installation
+        else { //permission is automatically granted on sdk < 23 upon installation
             Log.v(TAG,"Permission is granted");
             return true;
         }
@@ -256,8 +339,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (grantResults != null && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             // continue editing image now that we have permission
+            editImage();
         }
     }
 
@@ -267,14 +351,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         // Load the image into memory from the file
-        Bitmap bmp = BitmapFactory.decodeFile(getAndroidBeginnerImageUri().getPath(), null);
+        Bitmap bmp = BitmapFactory.decodeFile(mCurrentPhotoPath, null);
 
         // Square up the image from the camera
         int croppedImageSize = (int)Math.min(bmp.getWidth(), bmp.getHeight());
         Bitmap cropped = centerCropBitmapToSquareSize(bmp, croppedImageSize);
 
         // TODO Project 4: Draw text on the cropped image
-
 
         // Finally, save the edited image back to the file
         saveBitmapToFile(cropped);
@@ -283,14 +366,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Bitmap centerCropBitmapToSquareSize(Bitmap bmp, int cropSize) {
         int cropStartX = (int)Math.max(0, (int)(bmp.getWidth() / 2) - (int)(cropSize / 2));
         int cropStartY = (int)Math.max(0, (int)(bmp.getHeight() / 2) - (int)(cropSize / 2));
-        return Bitmap.createBitmap(bmp, cropStartX, cropStartY, cropSize, cropSize);
+        Matrix matrix = new Matrix();
+        // I rotate the image or your selfies (from front camera) will be sideways! This does mean that rear camera shots are usually upside-down.
+        matrix.postRotate(270);
+        return Bitmap.createBitmap(bmp, cropStartX, cropStartY, cropSize, cropSize, matrix, true);
     }
 
     private void saveBitmapToFile(Bitmap bitmap) {
         FileOutputStream out = null;
         try {
             // overwrite the file
-            out = new FileOutputStream(getAndroidBeginnerImageFile());
+            out = new FileOutputStream(getSelfieImageFile());
             bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
         } catch (Exception e) {
             Log.e(TAG, "save edited image failed", e);
