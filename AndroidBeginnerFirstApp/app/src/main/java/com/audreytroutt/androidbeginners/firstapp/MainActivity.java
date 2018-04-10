@@ -1,7 +1,6 @@
 package com.audreytroutt.androidbeginners.firstapp;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,8 +33,6 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
