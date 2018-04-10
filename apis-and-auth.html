@@ -1,0 +1,109 @@
+<!-- APIs and Authentication  -->
+<section>
+  <h2>APIs and Authentication</h2>
+  <p class="left-align">Most of the code that makes apps work isn't code you write yourself--instead we use libraries.</p>
+  <p class="left-align">A library will provide an API for implementing the features you need.</p>
+  <p class="left-align">API stands for Application Program Interface, and it means the classes and methods that you need to use to leverage all this code that other people wrote.</p>
+  <aside class="notes">
+    You've already learned a lot about the Android APIs when you learned about Application, Activity, and the Intent system.
+  </aside>
+</section>
+<section>
+  <h2>Dependencies</h2>
+  <p class="left-align">Dependencies are libraries that your project needs to work.</p>
+  <p class="left-align">You can add libraries manually by putting a copy of the library (usually a .jar or .aar file) in your project and instructing the gradle build script to include this file when it builds your app.</p>
+  <p class="left-align">Or, you can use a <strong>dependency management system</strong>, like gradle, to automatically download and include the required libraries into your app.</p>
+</section>
+<section>
+  <h2>build.gradle</h2>
+  <p class="left-align">Gradle is both our build tool and our dependency managment system. The build.gradle script gives instructions for how to build the app and which dependencies to download and include.</p>
+  <pre><code contenteditable class="java">apply plugin: 'com.android.application'
+
+android {
+  compileSdkVersion 24
+  buildToolsVersion "24.0.3"
+
+  defaultConfig {
+    applicationId "com.audreytroutt.androidbeginners.firstapp"
+    minSdkVersion 16
+    targetSdkVersion 24
+    versionCode 1
+    versionName "1.0"
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+}
+
+dependencies {
+compile fileTree(dir: 'libs', include: ['*.jar'])
+testCompile 'junit:junit:4.12'
+
+// Support libraries
+compile 'com.android.support:appcompat-v7:24.2.1'
+compile 'com.android.support:design:24.2.1'
+compile 'com.android.support:cardview-v7:24.2.1'
+compile 'com.android.support:support-v4:24.2.1'
+
+// picasso
+compile 'com.squareup.picasso:picasso:2.5.2'
+
+// TODO Project 3: add the firebase auth dependencies here
+}</code></pre>
+</section>
+<section>
+  <h2>Using Libraries</h2>
+  <p class="left-align">Once you've added a library to your project, you need to know how to use it. There are four kinds of documentation for most libraries:</p>
+  <ol>
+    <li>Getting Started Instructions</li>
+    <li>Formal API Documentation</li>
+    <li>Feature Usage Guides</li>
+    <li>Sample apps</li>
+  </ol>
+</section>
+<section>
+  <h2>Getting Started Instructions</h2>
+  <p class="left-align">Getting started instructions usually tell you how to get the library and maybe how to initialize the main class.</p>
+  <img src="img/auth-getting-started-instructions.png"/>
+</section>
+<section>
+  <h2>Formal API Documentation</h2>
+  <p class="left-align">Formal API documentation will list every class, method, and field in the API. Often these are in javadoc format.</p>
+  <img src="img/auth-formal-api-docs.png"/>
+</section>
+<section>
+  <h2>Feature Usage Guides</h2>
+  <p class="left-align">Feature usage guides give you step by step instructions for how to use a specific feature of the API.</p>
+  <img src="img/auth-feature-usage-docs.png"/>
+</section>
+<section>
+  <h2>Sample Apps</h2>
+  <p class="left-align">Sample apps are helpful because you can see a working example of the API.</p>
+  <img src="img/auth-sample-app.png"/>
+</section>
+<section>
+  <h2>How Authentication Works</h2>
+  <p class="left-align">When we use an authentication service there are typically three steps:</p>
+  <ol>
+    <li>Send request for authentication using API</li>
+    <li>Receive success token or failure response from auth service</li>
+    <li>(Optional) Request additional user info with success token</li>
+  </ol>
+</section>
+<section>
+  <h2>How Authentication Works</h2>
+  <img src="img/auth-how-it-works-blog-jachobsen-com.png"/>
+  <p><small>
+    By <a href="http://blog.jachobsen.com/2013/08/10/google-oauth2-in-android-with-rails-backend/">Henrik Jachobsen</a>
+  </small></p>
+</section>
+<section>
+  <h2>Firebase</h2>
+  <p class="left-align">Firebase is a service that can do authentication AND store data.</p>
+  <p class="left-align">Rather than forcing your app users to remember a new username and password you can let them log in with Google instead.</p>
+  <p class="left-align">You can authenticate with Google and then use the Google success token to authenticate with Firebase.</p>
+</section>

@@ -1,0 +1,41 @@
+<!-- 4. Camera and Photos  -->
+
+
+<section>
+  <h2>Camera and Photos</h2>
+  <p class="left-align">We already learned how to wire up a photo intent in the second project. There's more fun to be had with images, like editing them!</p>
+</section>
+<section>
+  <h2>Bitmap</h2>
+  <p class="left-align">On Android, images are loaded into memory as <a href="https://developer.android.com/reference/android/graphics/Bitmap.html">Bitmaps</a></p>
+  <pre><code contenteditable class="java">Bitmap bmp = BitmapFactory.decodeFile(getAndroidBeginnerImageUri().getPath(), null);</code></pre>
+</section>
+<section>
+  <h2>Bitmap</h2>
+  <p class="left-align">A bitmap is a representation of the image as a grid of pixels.</p>
+  <img src="img/edit-image-pixels.png"/>
+</section>
+<section>
+  <h2>Canvas and Paint</h2>
+  <p class="left-align">You can edit your Bitmap by creating a <a href="https://developer.android.com/reference/android/graphics/Canvas.html">Canvas</a> and some <a href="https://developer.android.com/reference/android/graphics/Paint.html">Paint</a>.</p>
+  <p class="left-align">Just like good old MS Paint you can switch colors and draw different shapes, all with code!</p>
+  <pre><code contenteditable class="java">Bitmap bitmap = Bitmap.createBitmap(300, 300, null);
+Canvas canvas = new Canvas(bitmap);
+Paint paint = new Paint();
+paint.setColor(Color.WHITE);
+canvas.drawCircle(150, 150, 50, paint);</code></pre>
+</section>
+<section>
+  <h2>Paint Coordinates</h2>
+  <p class="left-align">The pixels are numbered by their x and y coordinates on the grid. With 0,0 at the top left.</p>
+  <p class="left-align">X increases as you move to the right and Y increases as you move to the bottom.</p>
+  <img src="img/edit-image-bitmap-coordinates.png"/>
+</section>
+<section>
+  <h2>Paint Coordinates</h2>
+  <p class="left-align">Most shapes are drawn from the top left, but when drawing text on a bitmap by default text is drawn from the bottom left of the text (not the top left!).</p>
+  <img src="img/edit-image-bitmap-coordinates-text.png"/>
+  <p  class="left-align" style="margin-top:20px;"><small class="green">
+    HINT: The bottom of the text is known as the baseline of the text. The tails of letters like y and g hang down below the baseline, so make room for them when placing your text.
+  </small></p>
+</section>

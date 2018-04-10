@@ -1,0 +1,51 @@
+<!-- Project: More Tests -->
+<section>
+  <h2>Project: More Tests</h2>
+  <p class="left-align">Create a new class DeveloperDaysCalculator and write test for it.</p>
+  <pre><code contenteditable class="java">package com.audreytroutt.androidbeginners.firstapp;
+
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+public class DeveloperDaysCalculator {
+
+  public static long daysIveBeenAnAndroidDeveloper(Date startDate, Date today) {
+    final long millisecondsAsAndroidDeveloper = today.getTime() - startDate.getTime();
+    long daysAsAndroidDeveloper = TimeUnit.MILLISECONDS.toDays(millisecondsAsAndroidDeveloper);
+    return daysAsAndroidDeveloper;
+  }
+}</code></pre>
+</section>
+<section>
+  <h2>Project 5: More Tests</h2>
+  <p class="left-align">Create a new unit test class DeveloperDaysCalculatorTests and write tests!</p>
+  <pre><code contenteditable class="java">package com.audreytroutt.androidbeginners.firstapp;
+
+import org.junit.Test;
+import java.util.Calendar;
+import static org.junit.Assert.assertEquals;
+
+public class DeveloperDaysCalculatorTests {
+
+  @Test
+  public void calculateDaysIveBeenAnAndroidDeveloper() {
+    Calendar today = Calendar.getInstance();
+    today.set(2016, Calendar.NOVEMBER, 13, 20, 01); // 11/14/2016
+
+    // 1. TODO make a startDate
+
+    // 2. TODO call DeveloperDaysCalculator.daysIveBeenAnAndroidDeveloper
+
+    // 3. TODO make a test assertion about what the days should be
+
+  }
+}</code></pre>
+</section>
+<section>
+  <h1>BONUS: Refactor and use ButterKnife</h1>
+  <p>We can refactor our app to take advantage of <a href="https://github.com/JakeWharton/butterknife">ButterKnife</a>!</p>
+  <pre><code contenteditable class="java">dependencies {
+  compile 'com.jakewharton:butterknife:8.4.0'
+  annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+}</code></pre>
+</section>
