@@ -41,7 +41,7 @@ You should have:
    - On your computer, open the zip files with your favorite unzip program and put the 'android-beginners' folder somewhere you can find it later. If you are git cloning, then you are all set.
    - This repo contains the source for the app we will be using in this class in addition to these slides.
  - Try to launch the app in Android studio:
-   - Choose to open an existing Android Studio Project (File -> New -> Import Project)
+   - Choose to "Open an existing Android Studio project" (Or go to File -> New -> Import Project)
    - Choose the AndroidBeginnersFirstApp folder on your computer
  - **Nice to have** an Android phone with Android Jellybean (4.1-4.3), KitKat (4.4), Lollipop (5.x), or Marshmallow (6.x)
     - Don't forget a USB cable to connect your device to your laptop
